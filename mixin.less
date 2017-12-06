@@ -1,0 +1,174 @@
+// mixin
+// 需要随 dpr 和屏幕大小缩放的尺寸
+.px2rem(@name, @px) {
+    @{name}: @px / 75 * 1rem;
+}
+
+// 需要在各个屏幕和 dpr 都保持一致尺寸
+.px2px(@name, @px) {
+    @{name}: round(@px / 2) * 1px;
+    [data-dpr="2"] & {
+        @{name}: @px * 1px;
+    }
+    [data-dpr="2.5"] & {
+        @{name}: round(@px * 2.5 / 2) * 1px
+    }
+    [data-dpr="2.75"] & {
+        @{name}: round(@px * 2.75 / 2) * 1px
+    }
+    [data-dpr="3"] & {
+        @{name}: round(@px / 2 * 3) * 1px
+    }
+    [data-dpr="4"] & {
+        @{name}: @px * 2px
+    }
+}
+
+// 兼容 flexbox 布局相关
+.flex-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.flex(@percent) {
+    -webkit-box-flex: @percent;
+    -webkit-flex: @percent;
+    -ms-flex: @percent;
+    flex: @percent;
+}
+
+.flex-align-items(@align) {
+    -webkit-box-align: @align;
+    -webkit-align-items: @align;
+    -moz-align-items: @align;
+    -ms-align-items: @align;
+    -o-align-items: @align;
+    align-items: @align;
+}
+
+.flex-direction-c {
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+
+/* 父元素-水平居中（主轴是横向才生效） */
+
+.flex-hc(@center) {
+    /* 09版 */
+    -webkit-box-pack: @center;
+    /* 12版 */
+    -webkit-justify-content: @center;
+    -moz-justify-content: @center;
+    -ms-justify-content: @center;
+    -o-justify-content: @center;
+    justify-content: @center;
+    /* 其它取值如下：
+    align-items     主轴原点方向对齐
+    flex-end        主轴延伸方向对齐
+    space-between   等间距排列，首尾不留白
+    space-around    等间距排列，首尾留白
+ */
+}
+
+.border-radius(@px) {
+    .px2rem(-ms-border-radius, @px);
+    .px2rem(-moz-border-radius, @px);
+    /* Gecko browsers */
+    .px2rem(-webkit-border-radius, @px);
+    /* Webkit browsers */
+    .px2rem(border-radius, @px);
+    /* W3C syntax */
+}
+
+.border-top-left-radius(@px) {
+    .px2rem(-ms-border-top-left-radius, @px);
+    .px2rem(-moz-border-top-left-radius, @px);
+    /* Gecko browsers */
+    .px2rem(-webkit-border-top-left-radius, @px);
+    /* Webkit browsers */
+    .px2rem(border-top-left-radius, @px);
+    /* W3C syntax */
+}
+
+.border-top-right-radius(@px) {
+    .px2rem(-ms-border-top-right-radius, @px);
+    .px2rem(-moz-border-top-right-radius, @px);
+    /* Gecko browsers */
+    .px2rem(-webkit-border-top-right-radius, @px);
+    /* Webkit browsers */
+    .px2rem(border-top-right-radius, @px);
+    /* W3C syntax */
+}
+
+.border-bottom-left-radius(@px) {
+    .px2rem(-ms-border-bottom-left-radius, @px);
+    .px2rem(-moz-border-bottom-left-radius, @px);
+    /* Gecko browsers */
+    .px2rem(-webkit-border-bottom-left-radius, @px);
+    /* Webkit browsers */
+    .px2rem(border-bottom-left-radius, @px);
+    /* W3C syntax */
+}
+
+.border-bottom-right-radius(@px) {
+    .px2rem(-ms-border-bottom-right-radius, @px);
+    .px2rem(-moz-border-bottom-right-radius, @px);
+    /* Gecko browsers */
+    .px2rem(-webkit-border-bottom-right-radius, @px);
+    /* Webkit browsers */
+    .px2rem(border-bottom-right-radius, @px);
+    /* W3C syntax */
+}
+
+.keyframes(@name;
+@arguments) {
+    @keyframes @name {
+        @arguments();
+    }
+    @-moz-keyframes @name {
+        @arguments();
+    }
+    @-webkit-keyframes @name {
+        @arguments();
+    }
+    @-o-keyframes @name {
+        @arguments();
+    }
+}
+
+.animation(@args) {
+    -webkit-animation: @args;
+    -o-animation: @args;
+    animation: @args;
+    ;
+}
+
+.transform (@transform) {
+    -webkit-transform: @transform;
+    -moz-transform: @transform;
+    -ms-transform: @transform;
+    -o-transform: @transform;
+    transform: @transform;
+}
+
+.transition (@transition) {
+    -webkit-transition: @transition;
+    -moz-transition: @transition;
+    -ms-transition: @transition;
+    -o-transition: @transition;
+    transition: @transition;
+}
+
+.limit-row(@num) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: @num;
+}
